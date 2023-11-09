@@ -320,7 +320,7 @@ def main():
     while True:
         # source_command = input("Enter command: ")
         #print(address_book.data)
-        source_command = prompt("Enter command: ", completer=MyCompleter())
+        source_command = prompt("Enter command: ", completer=MyCompleter(address_book))
         command, param_list = parser(source_command)
         if not command:
             print(f"YOU ENTERED A WRONG COMMAND!!!\n{help}\nTRY AGAIN!!!")

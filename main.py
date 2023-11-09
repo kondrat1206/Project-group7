@@ -310,16 +310,7 @@ def handler(command):
 
 def main():
 
-    # comm_completer = list(commands.keys())
-    # filtered_commands = [key for key in list(commands.keys()) if "_" not in key and key != "helper"]
-
-    # result_dict = {key: None for key in filtered_commands}
-
-    # completer = WordCompleter(filtered_commands)
-    # print(filtered_commands)
     while True:
-        # source_command = input("Enter command: ")
-        #print(address_book.data)
         source_command = prompt("Enter command: ", completer=MyCompleter(address_book))
         command, param_list = parser(source_command)
         if not command:

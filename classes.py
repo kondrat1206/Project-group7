@@ -81,12 +81,6 @@ class AddressBook(UserDict):
             result = False
 
         return result
-    
-    # def get_contactlist(self):
-
-    #     contactlist = [self.data.keys]
-
-    #     return contactlist
 
 
     def add_record(self, record):

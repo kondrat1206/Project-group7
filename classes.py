@@ -268,7 +268,9 @@ class MyCompleter(Completer):
                 completions = [c for c in commands_list if text in c]
                 
             elif text.startswith('add birthday'):
-                completions = [text.rsplit(' ', 1)[0]+' '+u for u in users if text.split()[-1] in u]
+                completions = [text.rsplit(' ', 1)[0]+' '+u for u in users if text.split(' ', -1)[-1] in u]
+                if text.count(' ') == 3:
+                    completions = [text.rsplit(' ', 1)[0]+' '+'[dd.mm.yyyy]']
                 
             elif text.startswith('add'):
                 completions = [text.rsplit(' ', 1)[0]+' '+'[name]'+'[phone]'+'[birthday]']
@@ -286,9 +288,13 @@ class MyCompleter(Completer):
 
             elif text.startswith('phone'):
                 completions = [text.rsplit(' ', 1)[0]+' '+u for u in users if text.split(' ', -1)[-1] in u]
+                if text.count(' ') == 2:
+                    completions = []
 
             elif text.startswith('to birthday'):
                 completions = [text.rsplit(' ', 1)[0]+' '+u for u in users if text.split(' ', -1)[-1] in u]
+                if text.count(' ') == 3:
+                    completions = []
                 
             elif text.startswith('pages'):
                 completions = [text.rsplit(' ', 1)[0]+' '+'[size]']

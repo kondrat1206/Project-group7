@@ -82,11 +82,11 @@ class AddressBook(UserDict):
 
         return result
     
-    def get_contactlist(self):
+    # def get_contactlist(self):
 
-        contactlist = [self.data.keys]
+    #     contactlist = [self.data.keys]
 
-        return contactlist
+    #     return contactlist
 
 
     def add_record(self, record):
@@ -261,32 +261,40 @@ class MyCompleter(Completer):
         commands_list = ['good bye', 'close', 'exit', 'show all', 'hello', 'add birthday', 'add', 'change', 'phone', 'to birthday', 'help', 'pages', 'search']
         users = list(self.address_book.data.keys())
         #print(users)
-        text = document.text.lower()
+        text = document.text
         completions = []
         for command in commands_list:
-            if text in command.lower():  
+            if text in command:  
                 completions = [c for c in commands_list if text in c]
                 
             elif text.startswith('add birthday'):
-                completions = [text.rsplit(' ', 1)[0]+' '+u for u in users if text.split()[-1] in u.lower()]
+                completions = [text.rsplit(' ', 1)[0]+' '+u for u in users if text.split()[-1] in u]
                 
-            # elif text.startswith('add'):
-            #     completions = [text.rsplit(' ', 1)[0]+' '+p for p in phones if p.startswith(text.split()[-1])]
+            elif text.startswith('add'):
+                completions = [text.rsplit(' ', 1)[0]+' '+'[name]'+'[phone]'+'[birthday]']
                 
-            # elif text.startswith('change'):
-            #     completions = [text.rsplit(' ', 1)[0]+' '+b for b in birthdays if b.startswith(text.split()[-1])]
+            elif text.startswith('change'):
+                completions = [text.rsplit(' ', 1)[0]+' '+u for u in users if text.split(' ', -1)[-1] in u]
+                if text.count(' ') == 2:
+                    phone_list = self.address_book[text.split()[1]].phones
+                    value_list = []
+                    for phone_obj in phone_list:
+                        value_list.append(phone_obj.value)
+                    completions = [text.rsplit(' ', 1)[0]+' '+v for v in value_list if text.split(' ', -1)[-1] in v]
+                if text.count(' ') == 3:
+                    completions = [text.rsplit(' ', 1)[0]+' '+'[new phone]']
 
             elif text.startswith('phone'):
-                completions = [text.rsplit(' ', 1)[0]+' '+u for u in users if text.split()[-1] in u.lower()]
+                completions = [text.rsplit(' ', 1)[0]+' '+u for u in users if text.split(' ', -1)[-1] in u]
 
             elif text.startswith('to birthday'):
-                completions = [text.rsplit(' ', 1)[0]+' '+u for u in users if text.split()[-1] in u.lower()]
-
+                completions = [text.rsplit(' ', 1)[0]+' '+u for u in users if text.split(' ', -1)[-1] in u]
+                
             elif text.startswith('pages'):
-                completions = [text.rsplit(' ', 1)[0]+' '+'DIGIT']
+                completions = [text.rsplit(' ', 1)[0]+' '+'[size]']
 
             elif text.startswith('search'):
-                completions = [text.rsplit(' ', 1)[0]+' '+'STRING']
+                completions = [text.rsplit(' ', 1)[0]+' '+'[string]']
                 
         for completion in completions:
             yield Completion(completion, start_position=-len(text))

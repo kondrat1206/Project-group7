@@ -280,7 +280,6 @@ def load_data():
 def sort_folder(param_list):
     path = param_list[0]
     real_path = check_args(path)
-    #print(real_path)
     new_dir = real_path
     
     list_files = list_files_recursive(real_path)

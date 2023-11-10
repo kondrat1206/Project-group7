@@ -5,13 +5,6 @@ import re
 
 def check_args(arg):
 
-    print(arg)
-
-    # if len(arg) < 2:
-    #     print("Отсутствует аргумент командной строки. Пожалуйста, укажите путь к вашей папке.")
-    #     print("Например: main.py c:/Users/Name/Desktop/Мотлох")
-    #     #exit()
-    # else:
     path_dir = arg
         
 
@@ -21,7 +14,6 @@ def check_args(arg):
         print(f"Приступаю к разбору папки {real_path}")
     else:
         print(f"Папка '{path_dir}' не существует. попробуйте ввести путь еще раз")
-        #exit()
 
     return real_path
 
@@ -32,7 +24,6 @@ def list_files_recursive(real_path):
     for root, dirs, files in os.walk(real_path):
         for file in files:
             file_path = os.path.join(root, file)
-            #print(file_path)
             list_files.append(file_path)
 
     return list_files
@@ -43,15 +34,15 @@ def normalize(dir):
     for file in list_files:
         file = re.sub(r'[\\]', '/', file) # Полный путь к файлу
         filename_ext = file.split("/")[-1]  # Получаем имя файла с расширением
-        #print(filename_ext)
+        
         if "." in filename_ext:
             name_parts = filename_ext.split('.')
             ext = name_parts[-1]                   # Получаем расширение
             filename = '.'.join(name_parts[:-1])   # получаем имя без расширения
             path = file.split(filename)[0]  # Получаем путь к файлу
-            #print(f"Нормализуем файл, расположенный по пути {path}")
+           
             sort_dir = path.split(dir + '/')[-1].split('/')[0]
-            #print(sort_dir)
+            
             if sort_dir != 'archives' and sort_dir != 'unknown':
                 trans_filename = translate(filename)
                 new_filename = re.sub(r'[^a-zA-Z0-9]', '_', trans_filename.strip())
@@ -83,7 +74,7 @@ def sort(library, extension, file, new_dir):
     print(file)
     print(new_dir)
     filedir_src = file.split(new_dir)[1].split('/')[1]
-    #print(filedir_src)
+    
     if not os.path.exists(new_dir):
         os.makedirs(new_dir)
     is_recorded = False
@@ -167,33 +158,3 @@ library = {'images':('JPEG', 'PNG', 'JPG', 'SVG'),
                'scripts':('JS', 'CSS')
               }   
             
-
-if __name__ == '__main__':
-
-
-
-    real_path = check_args(sys.argv)
-    
-    new_dir = real_path
-    
-    list_files = list_files_recursive(real_path)
-    for file in list_files:
-        filename = file.split("/")[-1]  # Получаем имя файла с расширением
-        extension = file.split(".")[-1]  # Получаем расширение файла
-        sort(library, extension, file, new_dir)
-    print('Файлы отсортированы')
-
-    archive_dir = f'{real_path}/archives'
-    if os.path.exists(archive_dir):
-        print('Обнаружены архивы, приступаем к распаковке')
-
-        unpack_archives(library, archive_dir)
-        print("Архивы распакованы, их содержимое отсортировано")
-    else:
-        print('Архивы не обнаружены')
-
-    normalize(new_dir)
-    print('Имена файлов, за исключением неизвестных типов и распакованных архивов - нормализованы. Завершение работы')
-
-    remove_empty_directories(new_dir)
-    print(f'Ваши файлы отсортированы в директории {new_dir}, пустые папки удалены')

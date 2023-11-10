@@ -3,6 +3,7 @@ from classes import AddressBook, Record, Name, Phone, Birthday, MyCompleter
 import functools
 import pickle
 import os
+from sortfolder import check_args, list_files_recursive, sort, unpack_archives, normalize, remove_empty_directories, library
 
 help = """
 Available commands:
@@ -15,12 +16,15 @@ phone [name]: Show phone list of contact
 show all: Show address book
 pages [size]: Show address book in pages, size is number records per page
 search [string]: Matching search for name or phone in address book
+sort folder [path to folder]: Sort files depends extensions into the target folder
 good bye, close, exit: print \"Good bye!\" and exit
 help: Show this help
 """
 
 address_book = AddressBook()
 data_file = "address_book.bin"
+
+
 
 
 def input_error(func):
@@ -66,6 +70,12 @@ def input_error(func):
                 result = func(param_list)
             else:
                 result = f"""Command \"{func.__name__}\" reqired 1 argument: search string. \nFor example: {func.__name__} [string]\n\nTRY AGAIN!!!"""
+        elif func.__name__ == "sort_folder":
+            param_list.pop(0)
+            if len(param_list) > 0:
+                result = func(param_list)
+            else:
+                result = f"""Command \"{func.__name__}\" reqired 1 argument: path to target folder. \nFor example: {func.__name__} [path]\n\nTRY AGAIN!!!"""
 
         return result
     return inner
@@ -266,6 +276,36 @@ def load_data():
 
     return address_book
 
+@input_error
+def sort_folder(param_list):
+    path = param_list[0]
+    real_path = check_args(path)
+    #print(real_path)
+    new_dir = real_path
+    
+    list_files = list_files_recursive(real_path)
+    for file in list_files:
+        filename = file.split("/")[-1]  # Получаем имя файла с расширением
+        extension = file.split(".")[-1]  # Получаем расширение файла
+        sort(library, extension, file, new_dir)
+    print('Файлы отсортированы')
+
+    archive_dir = f'{real_path}/archives'
+    if os.path.exists(archive_dir):
+        print('Обнаружены архивы, приступаем к распаковке')
+
+        unpack_archives(library, archive_dir)
+        print("Архивы распакованы, их содержимое отсортировано")
+    else:
+        print('Архивы не обнаружены')
+
+    normalize(new_dir)
+    print('Имена файлов, за исключением неизвестных типов и распакованных архивов - нормализованы. Завершение работы')
+
+    remove_empty_directories(new_dir)
+    print(f'Ваши файлы отсортированы в директории {new_dir}, пустые папки удалены')
+    
+
 
 commands = {
     "good bye": exit,
@@ -284,7 +324,9 @@ commands = {
     "help": helper,
     "helper": helper,
     "pages": pages,
-    "search": search
+    "search": search,
+    "sort folder": sort_folder,
+    "sort_folder": sort_folder
 }
 
 

@@ -1,10 +1,8 @@
 from prompt_toolkit.completion import PathCompleter, Completer, Completion
-from prompt_toolkit import prompt
 from collections import UserDict
 from datetime import datetime, date
 import re
 import os
-from pathlib import Path
 
 
 

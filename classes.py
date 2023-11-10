@@ -1,7 +1,9 @@
-from prompt_toolkit.completion import Completer, Completion
+from prompt_toolkit.completion import PathCompleter, Completer, Completion
 from collections import UserDict
 from datetime import datetime, date
 import re
+import os
+
 
 
 
@@ -248,13 +250,13 @@ class MyCompleter(Completer):
 
     def __init__(self, address_book):
         self.address_book = address_book
+        self.path_completer = PathCompleter()
         
     
     def get_completions(self, document, complete_event):
 
-        commands_list = ['good bye', 'close', 'exit', 'show all', 'hello', 'add birthday', 'add', 'change', 'phone', 'to birthday', 'help', 'pages', 'search']
+        commands_list = ['good bye', 'close', 'exit', 'show all', 'hello', 'add birthday', 'add', 'change', 'phone', 'to birthday', 'help', 'pages', 'search', 'sort folder']
         users = list(self.address_book.data.keys())
-        #print(users)
         text = document.text
         completions = []
         for command in commands_list:
@@ -295,6 +297,20 @@ class MyCompleter(Completer):
 
             elif text.startswith('search'):
                 completions = [text.rsplit(' ', 1)[0]+' '+'[string]']
+
+        if text.startswith('sort folder'):
+            # Получить путь к папке из введенной строки
+            folder_path = text[len('sort folder'):].strip()
+            #print(f"PATH: '{folder_path}'")
+
+            # Проверить, существует ли указанная папка
+            if os.path.exists(folder_path) and os.path.isdir(folder_path):
+                # Получить список файлов и папок в указанной директории
+                path_completions = os.listdir(folder_path)
+                #completions.extend(path_completions)
+                completions = [text.rsplit(' ', 1)[0]+' '+text.split(' ', -1)[-1]+p for p in path_completions]
+                
+
                 
         for completion in completions:
             yield Completion(completion, start_position=-len(text))

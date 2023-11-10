@@ -19,7 +19,7 @@ search [string]: Matching search for name or phone in address book
 sort folder [path to folder]: Sort files depends extensions into the target folder
 selebrators [days to celebrate]: Show users with birthday less then set days
 good bye, close, exit: print \"Good bye!\" and exit
-help: Show this help
+help: Show this help 
 """
 
 address_book = AddressBook()

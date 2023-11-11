@@ -5,6 +5,7 @@ import pickle
 import os
 from sortfolder import check_args, list_files_recursive, sort, unpack_archives, normalize, remove_empty_directories, library
 from project_notes import PersonalAssistant
+import re
 
 help = """
 Available commands:
@@ -40,6 +41,11 @@ def input_error(func):
                 result = func(param_list)
             else:
                 result = f"""Command \"{func.__name__}\" reqired 1 argument: name.\nFor example: {func.__name__} [name]\n\nTRY AGAIN!!!"""
+        elif func.__name__ == "celebrators":
+            if len(param_list) > 0:
+                result = func(param_list)
+            else:
+                result = f"""Command \"{func.__name__}\" reqired 1 argument: days to birthday.\nFor example: {func.__name__} [days to birthday]\n\nTRY AGAIN!!!"""
         elif func.__name__ == "add":
             if len(param_list) > 0:
                 result = func(param_list)
@@ -344,6 +350,36 @@ def notes (param_list):
             break
         else:
             print("Incorrect choice. Please try again.")
+
+
+@input_error
+def celebrators(param_list):
+
+    result = "Finded celebrators:\n"
+    for record in address_book.data.values():
+        text = record.days_to_birthday()
+        days_left = extract_info(text)
+        if days_left[1] != None and  int(days_left[1]) <= int(param_list[0]):
+            result += f"For contact: \"{days_left[0]}\", left {days_left[1]} days to celebrate. Birthday: [{record.birthday.value}]\n"
+            #print(days_left[0], days_left[1], param_list[0])
+
+    return result
+        
+
+
+def extract_info(text):
+    match = re.search(r'contact "(.*?)"(?: untill "(.*?)")? days', text)
+    if match:
+        name = match.group(1)
+        days = match.group(2)
+        return (name, int(days) if days else None)
+    else:
+        match = re.search(r'contact "(.*?)"', text)
+        if match:
+            name = match.group(1)
+            return (name, None)
+    return None
+
     
 
 
@@ -367,7 +403,8 @@ commands = {
     "search": search,
     "sort folder": sort_folder,
     "sort_folder": sort_folder,
-    "notes": notes
+    "notes": notes,
+    "celebrators": celebrators
 }
 
 

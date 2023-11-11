@@ -255,7 +255,7 @@ class MyCompleter(Completer):
     
     def get_completions(self, document, complete_event):
 
-        commands_list = ['good bye', 'close', 'exit', 'show all', 'hello', 'add birthday', 'add', 'change', 'phone', 'to birthday', 'help', 'pages', 'search', 'sort folder', 'notes']
+        commands_list = ['good bye', 'close', 'exit', 'show all', 'hello', 'add birthday', 'add', 'change', 'phone', 'to birthday', 'help', 'pages', 'search', 'sort folder', 'notes', 'celebrators']
         users = list(self.address_book.data.keys())
         text = document.text
         completions = []
@@ -290,6 +290,11 @@ class MyCompleter(Completer):
             elif text.startswith('to birthday'):
                 completions = [text.rsplit(' ', 1)[0]+' '+u for u in users if text.split(' ', -1)[-1] in u]
                 if text.count(' ') == 3:
+                    completions = []
+
+            elif text.startswith('celebrators'):
+                completions = [text.rsplit(' ', 1)[0]+' '+'[days to birthday]']
+                if text.count(' ') == 2:
                     completions = []
                 
             elif text.startswith('pages'):

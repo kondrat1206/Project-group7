@@ -107,6 +107,11 @@ class AddressBook(UserDict):
                     result = f"Added new phone \"{record.phones[0].value}\" to contact \"{record.name.value}\"\n"
 
         return result
+    
+
+    def remove_record(self, name):
+
+        del self.data[name]
 
 
 class Record:
@@ -255,7 +260,7 @@ class MyCompleter(Completer):
     
     def get_completions(self, document, complete_event):
 
-        commands_list = ['good bye', 'close', 'exit', 'show all', 'hello', 'add birthday', 'add', 'change', 'phone', 'to birthday', 'help', 'pages', 'search', 'sort folder', 'notes', 'celebrators']
+        commands_list = ['good bye', 'close', 'exit', 'show all', 'hello', 'add birthday', 'add', 'change', 'phone', 'to birthday', 'help', 'pages', 'search', 'sort folder', 'notes', 'celebrators', 'remove']
         users = list(self.address_book.data.keys())
         text = document.text
         completions = []
@@ -282,7 +287,7 @@ class MyCompleter(Completer):
                 if text.count(' ') == 3:
                     completions = [text.rsplit(' ', 1)[0]+' '+'[new phone]']
 
-            elif text.startswith('phone'):
+            elif text.startswith('phone') or text.startswith('remove'):
                 completions = [text.rsplit(' ', 1)[0]+' '+u for u in users if text.split(' ', -1)[-1] in u]
                 if text.count(' ') == 2:
                     completions = []

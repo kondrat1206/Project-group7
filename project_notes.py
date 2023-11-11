@@ -1,9 +1,11 @@
 import json
+import os
 
 class PersonalAssistant:
     def __init__(self):
         self.notes = []
-        self.notes_filename = "notes.json"
+        home_directory = os.path.expanduser("~")
+        self.notes_filename = os.path.join(home_directory, "notes.json")
 
         # Load data from JSON files during initialization
         self.load_from_json()
@@ -69,7 +71,7 @@ class PersonalAssistant:
 
     def load_data(self):
         try:
-            with open("notes.json", "r") as notes_file:
+            with open(self.notes_filename, "r") as notes_file:
                 self.notes = json.load(notes_file)
         except FileNotFoundError:
             self.notes = []
@@ -78,7 +80,7 @@ class PersonalAssistant:
         self.save_notes()
 
     def save_notes(self):
-        with open("notes.json", "w") as notes_file:
+        with open(self.notes_filename, "w") as notes_file:
             json.dump(self.notes, notes_file)
 
     def save_to_json(self):

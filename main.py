@@ -352,6 +352,8 @@ def notes (param_list):
         else:
             print("Incorrect choice. Please try again.")
 
+    return "Exited from notes \n"
+
 
 @input_error
 def celebrators(param_list):

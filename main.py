@@ -12,6 +12,7 @@ Available commands:
 hello: print \"How can I help you?\"
 add [name] [phone] [birthday]: Add a new record to address book or new phone to contact phone list
 add birthday [name] [birthday]: Add a new/change Birthday to the contact of address book
+remove [name]: Remove contact from address book
 to birthday [name]: Show days to contact`s Birthday
 change [name] [old_phone] [new_phone]: Change phone num for contact in address book
 phone [name]: Show phone list of contact
@@ -37,11 +38,11 @@ def input_error(func):
     @functools.wraps(func)
     def inner(param_list):
 
-        if func.__name__ == "phone":
+        if func.__name__ == "phone" or func.__name__ == "remove_contact":
             if len(param_list) > 0:
                 result = func(param_list)
             else:
-                result = f"""Command \"{func.__name__}\" reqired 1 argument: name.\nFor example: {func.__name__} [name]\n\nTRY AGAIN!!!"""
+                result = f"""Command \"{func.__name__.replace("_contact", "")}\" reqired 1 argument: name.\nFor example: {func.__name__.replace("_contact", "")} [name]\n\nTRY AGAIN!!!"""
         elif func.__name__ == "celebrators":
             if len(param_list) > 0:
                 result = func(param_list)
@@ -371,6 +372,7 @@ def celebrators(param_list):
 
 
 def extract_info(text):
+
     match = re.search(r'contact "(.*?)"(?: untill "(.*?)")? days', text)
     if match:
         name = match.group(1)
@@ -382,6 +384,17 @@ def extract_info(text):
             name = match.group(1)
             return (name, None)
     return None
+
+
+@input_error
+def remove_contact(param_list):
+    if param_list[0] in address_book.data:
+        address_book.remove_record(param_list[0])
+        result = f"Contact \"{param_list[0]}\" removed from address book"
+    else:
+        result = f"Contact \"{param_list[0]}\" does not exist in address book"
+
+    return result
 
     
 
@@ -407,7 +420,9 @@ commands = {
     "sort folder": sort_folder,
     "sort_folder": sort_folder,
     "notes": notes,
-    "celebrators": celebrators
+    "celebrators": celebrators,
+    "remove": remove_contact,
+    "remove_contact": remove_contact
 }
 
 

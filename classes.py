@@ -255,7 +255,7 @@ class MyCompleter(Completer):
     
     def get_completions(self, document, complete_event):
 
-        commands_list = ['good bye', 'close', 'exit', 'show all', 'hello', 'add birthday', 'add', 'change', 'phone', 'to birthday', 'help', 'pages', 'search', 'sort folder']
+        commands_list = ['good bye', 'close', 'exit', 'show all', 'hello', 'add birthday', 'add', 'change', 'phone', 'to birthday', 'help', 'pages', 'search', 'sort folder', 'notes']
         users = list(self.address_book.data.keys())
         text = document.text
         completions = []

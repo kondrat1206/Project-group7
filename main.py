@@ -26,7 +26,8 @@ help: Show this help
 """
 
 address_book = AddressBook()
-data_file = "address_book.bin"
+home_directory = os.path.expanduser("~")
+data_file = os.path.join(home_directory, "address_book.bin")
 
 
 

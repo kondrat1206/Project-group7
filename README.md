@@ -19,7 +19,7 @@ This is a command-line interface (CLI) application for managing an address book.
    pip install --upgrade setuptools wheel
    ```
 
-   Build packet.:
+   Build:
 
    ```bash
    python setup.py sdist bdist_wheel

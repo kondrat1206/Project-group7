@@ -12,9 +12,13 @@ Available commands:
 hello: print \"How can I help you?\"
 add [name] [phone] [birthday]: Add a new record to address book or new phone to contact phone list
 add birthday [name] [birthday]: Add a new/change Birthday to the contact of address book
+add email [name] [email]: Add email to the contact of address book
+add address [name] [email]: Add address to the contact of address book
 remove [name]: Remove contact from address book
 to birthday [name]: Show days to contact`s Birthday
 change [name] [old_phone] [new_phone]: Change phone num for contact in address book
+change email [name] [new email]: Change email for contact in address book
+change address [name] [new address]: Change address for contact in address book
 phone [name]: Show phone list of contact
 show all: Show address book
 pages [size]: Show address book in pages, size is number records per page
@@ -59,6 +63,20 @@ def input_error(func):
                 result = func(param_list)
             else:
                 result = f"""Command \"{func.__name__.replace("_", " ")}\" reqired 2 arguments: name and birthday.\nFor example: {func.__name__.replace("_", " ")} [name] [birthday]\n\nTRY AGAIN!!!"""
+
+        elif func.__name__ == "add_email" or func.__name__ == "change_email":
+            param_list.pop(0)
+            if len(param_list) > 1:
+                result = func(param_list)
+            else:
+                result = f"""Command \"{func.__name__.replace("_", " ")}\" reqired 2 arguments: name and email.\nFor example: {func.__name__.replace("_", " ")} [name] [email]\n\nTRY AGAIN!!!"""
+
+        elif func.__name__ == "add_address" or func.__name__ == "change_address":
+            param_list.pop(0)
+            if len(param_list) > 1:
+                result = func(param_list)
+            else:
+                result = f"""Command \"{func.__name__.replace("_", " ")}\" reqired 2 arguments: name and address.\nFor example: {func.__name__.replace("_", " ")} [name] [address]\n\nTRY AGAIN!!!"""
 
         elif func.__name__ == "change":
             if len(param_list) > 2:
@@ -236,9 +254,11 @@ def show_all(param_list):
         phones = record.phones
         birthday = record.birthday.value
         phone_values = []
+        email = record.email
+        address = record.home_address
         for phone in phones:
             phone_values.append(phone.value)
-        result += f"Name: \"{name}\", Phones: {phone_values}, Birthday: [{birthday}]\n"
+        result += f"Name: \"{name}\", Phones: {phone_values}, Birthday: [{birthday}], Email: [{email}], , Home address: [{address}]\n"
 
     return result
 
@@ -388,9 +408,57 @@ def extract_info(text):
 
 @input_error
 def remove_contact(param_list):
+
     if param_list[0] in address_book.data:
         address_book.remove_record(param_list[0])
         result = f"Contact \"{param_list[0]}\" removed from address book"
+    else:
+        result = f"Contact \"{param_list[0]}\" does not exist in address book"
+
+    return result
+
+
+@input_error
+def add_email(param_list):
+
+    if param_list[0] in address_book.data:
+        result = address_book[param_list[0]].add_email(param_list[1])
+    else:
+        result = f"Contact \"{param_list[0]}\" does not exist in address book"
+
+    return result
+
+
+@input_error
+def add_address(param_list):
+
+    if param_list[0] in address_book.data:
+        address_book[param_list[0]].add_home_address(' '.join(param_list[1:]))
+        result = f"For contact \"{param_list[0]}\" added new address \"{' '.join(param_list[1:])}\""
+    else:
+        result = f"Contact \"{param_list[0]}\" does not exist in address book"
+
+    return result
+
+
+@input_error
+def change_email(param_list):
+
+    if param_list[0] in address_book.data:
+        result = address_book[param_list[0]].change_email(param_list[1])
+        
+    else:
+        result = f"Contact \"{param_list[0]}\" does not exist in address book"
+
+    return result
+
+
+@input_error
+def change_address(param_list):
+
+    if param_list[0] in address_book.data:
+        address_book[param_list[0]].add_home_address(' '.join(param_list[1:]))
+        result = f"For contact \"{param_list[0]}\" address changed to \"{' '.join(param_list[1:])}\""
     else:
         result = f"Contact \"{param_list[0]}\" does not exist in address book"
 
@@ -408,6 +476,14 @@ commands = {
     "hello": hello,
     "add birthday": add_birthday,
     "add_birthday": add_birthday,
+    "add email": add_email,
+    "add_email": add_email,
+    "add address": add_address,
+    "add_address": add_address,
+    "change email": change_email,
+    "change_email": change_email,
+    "change address": change_address,
+    "change_address": change_address,
     "add": add,
     "change": change,
     "phone": phone,
@@ -449,7 +525,7 @@ def handler(command):
 def main():
 
     while True:
-        source_command = prompt("Enter command: ", completer=MyCompleter(address_book))
+        source_command = prompt("Enter command: ", completer=MyCompleter(address_book, commands))
         command, param_list = parser(source_command)
         if not command:
             print(f"YOU ENTERED A WRONG COMMAND!!!\n{help}\nTRY AGAIN!!!")

@@ -308,7 +308,7 @@ class MyCompleter(Completer):
     
     def get_completions(self, document, complete_event):
 
-        commands_list = [key for key in self.commands.keys() if "_" not in key]
+        commands_list = [key for key in self.commands.keys() if "_" not in key and key != "helper"]
         users = list(self.address_book.data.keys())
         text = document.text
         completions = []

@@ -8,7 +8,10 @@ This is a command-line interface (CLI) application for managing an address book.
 
    ```bash
    git clone https://github.com/kondrat1206/Project-group7.git
-   cd your-repository
+   ```
+
+   ```bash
+   cd ./Project-group7
    ```
 
 2. Build packet:

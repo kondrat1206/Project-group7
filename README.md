@@ -25,13 +25,13 @@ This is a command-line interface (CLI) application for managing an address book.
    python setup.py sdist bdist_wheel
    ```
 
-   Install packet to the system:
+3. Install packet to the system:
 
    ```bash
    pip install ./dist/assistant-0.1.0-py3-none-any.whl
    ```
 
-3. Run the application:
+4. Run the application:
 
    ```bash
    assistant

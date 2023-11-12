@@ -7,7 +7,7 @@ This is a command-line interface (CLI) application for managing an address book.
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/your-repository.git
+   git clone https://github.com/kondrat1206/Project-group7.git
    cd your-repository
    ```
 

@@ -6,22 +6,36 @@ This is a command-line interface (CLI) application for managing an address book.
 
 1. Clone the repository:
 
-    ```bash
-    git clone https://github.com/yourusername/your-repository.git
-    cd your-repository
-    ```
+   ```bash
+   git clone https://github.com/yourusername/your-repository.git
+   cd your-repository
+   ```
 
-2. Install the required dependencies:
+2. Сборка пакета:
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+   Обновляем версию setuptools и wheel:
 
-3. Run the application:
+   pip install --upgrade setuptools wheel
 
-    ```bash
-    python assistant/main.py
-    ```
+   Теперь собираем наш пакет. Для этого выполняем:
+
+   python setup.py sdist bdist_wheel
+
+   устанавливаем собранный пакет в систему:
+
+   pip install ./dist/assistant-0.1.0-py3-none-any.whl
+
+3. Install the required dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Run the application:
+
+   ```bash
+   assistant
+   ```
 
 ## Available Commands:
 

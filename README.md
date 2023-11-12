@@ -14,6 +14,10 @@ This is a command-line interface (CLI) application for managing an address book.
 
 - **change [name] [old_phone] [new_phone]**: Change the phone number for a contact in the address book. Provide the contact's name, the old phone number, and the new phone number.
 
+- **add email [name] [email]**: Add email to the contact of address book
+
+- **add address [name] [email]: Add address to the contact of address book**: Add email to the contact of address book
+
 - **phone [name]**: Show the phone list of a contact.
 
 - **show all**: Show the entire address book.

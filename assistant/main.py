@@ -30,9 +30,28 @@ good bye, close, exit: print \"Good bye!\" and exit
 help: Show this help
 """
 
-address_book = AddressBook()
 home_directory = os.path.expanduser("~")
 data_file = os.path.join(home_directory, "address_book.bin")
+
+def save_data():
+
+    with open(data_file, "wb") as file:
+        pickle.dump(address_book, file)
+
+
+def load_data():
+    with open(data_file, 'rb') as file:
+        address_book = pickle.load(file)
+
+    return address_book
+
+
+if os.path.exists(data_file):
+    address_book = load_data()
+    print("True")
+else:
+    address_book = AddressBook()
+    print("False")
 
 
 
@@ -295,18 +314,6 @@ def helper(param_list):
     return help
 
 
-def save_data():
-
-    with open(data_file, "wb") as file:
-        pickle.dump(address_book, file)
-
-
-def load_data():
-    with open(data_file, 'rb') as file:
-        address_book = pickle.load(file)
-
-    return address_book
-
 @input_error
 def sort_folder(param_list):
     path = param_list[0]
@@ -540,8 +547,5 @@ def main():
 
 
 if __name__ == "__main__":
-
-    if os.path.exists(data_file):
-        address_book = load_data()
 
     main()

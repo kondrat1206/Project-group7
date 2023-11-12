@@ -1,6 +1,27 @@
 # Address Book CLI Application
 
-This is a command-line interface (CLI) application for managing an address book. The application allows you to add, edit, and view contacts along with their phone numbers and birthdays.
+This is a command-line interface (CLI) application for managing an address book. The application allows you to add, edit, and view contacts along with their phone numbers and birthdays, email, and home addresses.
+
+## Installation:
+
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/yourusername/your-repository.git
+    cd your-repository
+    ```
+
+2. Install the required dependencies:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3. Run the application:
+
+    ```bash
+    python assistant/main.py
+    ```
 
 ## Available Commands:
 
@@ -14,11 +35,15 @@ This is a command-line interface (CLI) application for managing an address book.
 
 - **change [name] [old_phone] [new_phone]**: Change the phone number for a contact in the address book. Provide the contact's name, the old phone number, and the new phone number.
 
-- **add email [name] [email]**: Add email to the contact of address book
+- **add email [name] [email]**: Add an email to the contact in the address book.
 
-- **add address [name] [email]: Add address to the contact of address book**: Add email to the contact of address book
+- **add address [name] [home_address]**: Add a home address to the contact in the address book.
 
 - **phone [name]**: Show the phone list of a contact.
+
+- **email [name]**: Show the email address of a contact.
+
+- **home [name]**: Show the home address of a contact.
 
 - **show all**: Show the entire address book.
 

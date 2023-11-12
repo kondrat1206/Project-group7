@@ -11,27 +11,27 @@ This is a command-line interface (CLI) application for managing an address book.
    cd your-repository
    ```
 
-2. Сборка пакета:
+2. Build packet:
 
-   Обновляем версию setuptools и wheel:
-
-   pip install --upgrade setuptools wheel
-
-   Теперь собираем наш пакет. Для этого выполняем:
-
-   python setup.py sdist bdist_wheel
-
-   устанавливаем собранный пакет в систему:
-
-   pip install ./dist/assistant-0.1.0-py3-none-any.whl
-
-3. Install the required dependencies:
+   Update setuptools и wheel version:
 
    ```bash
-   pip install -r requirements.txt
+   pip install --upgrade setuptools wheel
    ```
 
-4. Run the application:
+   Build packet.:
+
+   ```bash
+   python setup.py sdist bdist_wheel
+   ```
+
+   Install packet to the system:
+
+   ```bash
+   pip install ./dist/assistant-0.1.0-py3-none-any.whl
+   ```
+
+3. Run the application:
 
    ```bash
    assistant

@@ -326,18 +326,20 @@ class MyCompleter(Completer):
                 if text.count(' ') > 2:
                     completions = [text.rsplit(' ', 1)[0]+' '+'[text]']
                 
-            elif text.startswith('add'):
-                completions = [text.rsplit(' ', 1)[0]+' '+'[name]'+'[phone]'+'[birthday]']
-                
-            elif text.startswith('change'):
+            elif text.startswith('add contact'):
                 completions = [text.rsplit(' ', 1)[0]+' '+u for u in users if text.split(' ', -1)[-1] in u]
-                if text.count(' ') == 2:
-                    phone_list = self.address_book[text.split()[1]].phones
+                if text.count(' ') > 2:
+                    completions = [text.rsplit(' ', 1)[0]+' '+'[phone]'+'[birthday DD.MM.YYY]']
+                
+            elif text.startswith('change phone'):
+                completions = [text.rsplit(' ', 1)[0]+' '+u for u in users if text.split(' ', -1)[-1] in u]
+                if text.count(' ') == 3:
+                    phone_list = self.address_book[text.split()[2]].phones
                     value_list = []
                     for phone_obj in phone_list:
                         value_list.append(phone_obj.value)
                     completions = [text.rsplit(' ', 1)[0]+' '+v for v in value_list if text.split(' ', -1)[-1] in v]
-                if text.count(' ') == 3:
+                if text.count(' ') == 4:
                     completions = [text.rsplit(' ', 1)[0]+' '+'[new phone]']
 
             elif text.startswith('phone') or text.startswith('remove'):

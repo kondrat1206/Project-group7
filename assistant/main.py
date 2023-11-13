@@ -12,22 +12,22 @@ import re
 help = """
 Available commands:
 hello: print \"How can I help you?\"
-add [name] [phone] [birthday]: Add a new record to address book or new phone to contact phone list
+add contact [name] [phone] [birthday]: Add a new record to address book or new phone to contact phone list
 add birthday [name] [birthday]: Add a new/change Birthday to the contact of address book
 add email [name] [email]: Add email to the contact of address book
 add address [name] [email]: Add address to the contact of address book
-remove [name]: Remove contact from address book
-to birthday [name]: Show days to contact`s Birthday
-change [name] [old_phone] [new_phone]: Change phone num for contact in address book
+change phone [name] [old_phone] [new_phone]: Change phone num for contact in address book
 change email [name] [new email]: Change email for contact in address book
 change address [name] [new address]: Change address for contact in address book
+remove [name]: Remove contact from address book
 phone [name]: Show phone list of contact
 show all: Show address book
 pages [size]: Show address book in pages, size is number records per page
+to birthday [name]: Show days to contact`s Birthday
+celebrators [days to celebrate]: Show users with birthday less then set days
 search [string]: Matching search for name or phone in address book
 sort folder [path to folder]: Sort files depends extensions into the target folder
-notes []: module for notes use
-celebrators [days to celebrate]: Show users with birthday less then set days
+notes: module for user notes
 good bye, close, exit: print \"Good bye!\" and exit
 help: Show this help
 """
@@ -73,11 +73,12 @@ def input_error(func):
                 result = func(param_list)
             else:
                 result = f"""Command \"{func.__name__}\" reqired 1 argument: days to birthday.\nFor example: {func.__name__} [days to birthday]\n\nTRY AGAIN!!!"""
-        elif func.__name__ == "add":
+        elif func.__name__ == "add_contact":
+            param_list.pop(0)
             if len(param_list) > 0:
                 result = func(param_list)
             else:
-                result = f"""Command \"{func.__name__}\" reqired 1 or 2 arguments: name and phone.\nFor example: {func.__name__} [name] - To add a new contact without phones\nFor example: {func.__name__} [name] [phone] - To add a new contact with phones, or add new phone to contact\n\nTRY AGAIN!!!"""
+                result = f"""Command \"{func.__name__.replace("_", " ")}\" reqired 1 or 2 arguments: name and phone.\nFor example: {func.__name__.replace("_", " ")} [name] - To add a new contact without phones\nFor example: {func.__name__.replace("_", " ")} [name] [phone] - To add a new contact with phones, or add new phone to contact\n\nTRY AGAIN!!!"""
         elif func.__name__ == "add_birthday":
             param_list.pop(0)
             if len(param_list) > 1:
@@ -99,11 +100,12 @@ def input_error(func):
             else:
                 result = f"""Command \"{func.__name__.replace("_", " ")}\" reqired 2 arguments: name and address.\nFor example: {func.__name__.replace("_", " ")} [name] [address]\n\nTRY AGAIN!!!"""
 
-        elif func.__name__ == "change":
+        elif func.__name__ == "change_phone":
+            param_list.pop(0)
             if len(param_list) > 2:
                 result = func(param_list)
             else:
-                result = f"""Command \"{func.__name__}\" reqired 3 arguments: name, phone and new_phone.\nFor example: {func.__name__} [name] [phone] [new_phone]\n\nTRY AGAIN!!!"""
+                result = f"""Command \"{func.__name__.replace("_", " ")}\" reqired 3 arguments: name, phone and new_phone.\nFor example: {func.__name__.replace("_", " ")} [name] [phone] [new_phone]\n\nTRY AGAIN!!!"""
         elif func.__name__ == "to_birthday":
             param_list.pop(0)
             if len(param_list) > 0:
@@ -132,7 +134,7 @@ def input_error(func):
 
 
 @input_error
-def add(param_list):
+def add_contact(param_list):
 
     name = Name(None)
     phone = Phone(None)
@@ -207,7 +209,7 @@ def add_birthday(param_list):
 
 
 @input_error
-def change(param_list):
+def change_phone(param_list):
 
     record = Record(Name(param_list[0]))
     old_phone_obj = Phone(param_list[1])
@@ -495,8 +497,10 @@ commands = {
     "change_email": change_email,
     "change address": change_address,
     "change_address": change_address,
-    "add": add,
-    "change": change,
+    "add contact": add_contact,
+    "add_contact": add_contact,
+    "change phone": change_phone,
+    "change_phone": change_phone,
     "phone": phone,
     "to birthday": to_birthday,
     "to_birthday": to_birthday,

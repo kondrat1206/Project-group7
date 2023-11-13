@@ -1,10 +1,10 @@
 # Address Book CLI Application
 
-This is a command-line interface (CLI) application for managing an address book. The application allows you to add, edit, and view contacts along with their phone numbers and birthdays, email, and home addresses. Allows search for address book with matces in phone, name or other fields.
+This is a command-line interface (CLI) application for managing an address book. The application allows you to add, edit, and view contacts along with their phone numbers and birthdays, email, and home addresses. Allows search for address book with matches in phone, name or other fields.
 
 Module Notes allows working with notes, creating, deleting, and sorting them. Keyword search functionality has been implemented.
 
-Module SortFolder will sort your files in target folder, depends file extension for categories: Images, Video, Documents, Archives etc. After sorting, archives will be unpacked.
+Module SortFolder will sort your files in the target folder, depends file extension for categories: Images, Video, Documents, Archives etc. After sorting, archives will be unpacked, and Cyrillic symbols translate to Latin
 
 ## Installation:
 

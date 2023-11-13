@@ -324,25 +324,25 @@ def sort_folder(param_list):
     
     list_files = list_files_recursive(real_path)
     for file in list_files:
-        filename = file.split("/")[-1]  # Получаем имя файла с расширением
-        extension = file.split(".")[-1]  # Получаем расширение файла
+        filename = file.split("/")[-1]
+        extension = file.split(".")[-1]
         sort(library, extension, file, new_dir)
-    print('Файлы отсортированы')
+    print('Files sorted')
 
     archive_dir = f'{real_path}/archives'
     if os.path.exists(archive_dir):
-        print('Обнаружены архивы, приступаем к распаковке')
+        print('Archives detected, let s proceed with unpacking.')
 
         unpack_archives(library, archive_dir)
-        print("Архивы распакованы, их содержимое отсортировано")
+        print("The archives have been unpacked, and their contents have been sorted.")
     else:
-        print('Архивы не обнаружены')
+        print('No archives found.')
 
     normalize(new_dir)
-    print('Имена файлов, за исключением неизвестных типов и распакованных архивов - нормализованы. Завершение работы')
+    print('File names, excluding unknown types and unpacked archives, have been normalized. Task completed.')
 
     remove_empty_directories(new_dir)
-    print(f'Ваши файлы отсортированы в директории {new_dir}, пустые папки удалены')
+    print(f'Your files are sorted in the directory {new_dir}, and empty folders have been deleted.')
 
 
 def notes (param_list):

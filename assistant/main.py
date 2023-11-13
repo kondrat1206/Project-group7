@@ -16,7 +16,7 @@ hello: print \"How can I help you?\"
 add contact [name] [phone] [birthday]: Add a new record to address book or new phone to contact phone list
 add birthday [name] [birthday]: Add a new/change Birthday to the contact of address book
 add email [name] [email]: Add email to the contact of address book
-add address [name] [email]: Add address to the contact of address book
+add address [name] [address]: Add address to the contact of address book
 change phone [name] [old_phone] [new_phone]: Change phone num for contact in address book
 change email [name] [new email]: Change email for contact in address book
 change address [name] [new address]: Change address for contact in address book

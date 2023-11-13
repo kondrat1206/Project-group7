@@ -1,0 +1,12 @@
+README.md
+setup.py
+assistant/__init__.py
+assistant/classes.py
+assistant/main.py
+assistant/project_notes.py
+assistant/sortfolder.py
+assistant.egg-info/PKG-INFO
+assistant.egg-info/SOURCES.txt
+assistant.egg-info/dependency_links.txt
+assistant.egg-info/entry_points.txt
+assistant.egg-info/top_level.txt

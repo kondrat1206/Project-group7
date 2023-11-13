@@ -8,6 +8,7 @@ import os
 from assistant.sortfolder import check_args, list_files_recursive, sort, unpack_archives, normalize, remove_empty_directories, library
 from assistant.project_notes import PersonalAssistant
 import re
+sys.path.append('..')
 
 help = """
 Available commands:

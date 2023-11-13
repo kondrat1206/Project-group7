@@ -48,37 +48,37 @@ Module SortFolder will sort your files in the target folder, depends file extens
 
 - **hello**: Print "How can I help you?"
 
-- **add [name] [phone] [birthday]**: Add a new record to the address book or a new phone to a contact's phone list. Provide the contact's name, phone number, and an optional birthday in the format 'YYYY-MM-DD'.
+- **add contact [name] [phone] [birthday]**: Add a new record to the address book or a new phone. Provide the contact's name , and an optional phone number and birthday in the format 'DD.MM.YYYY'.
 
-- **add birthday [name] [birthday]**: Add a new or change the birthday of a contact in the address book. Provide the contact's name and the birthday in the format 'YYYY-MM-DD'.
+- **add birthday [name] [birthday]**: Add a new or change the birthday of a contact in the address book. Provide the contact's name and the birthday in the format 'DD.MM.YYYY'.
 
-- **to birthday [name]**: Show the number of days until the contact's birthday.
+- **add email [name] [email]**: Add email to the contact of address book.
 
-- **change [name] [old_phone] [new_phone]**: Change the phone number for a contact in the address book. Provide the contact's name, the old phone number, and the new phone number.
+- **add address [name] [address]**: Add address to the contact of address book.
 
-- **add email [name] [email]**: Add an email to the contact in the address book.
+- **change phone [name] [old_phone] [new_phone]**: Change phone num for contact in address book.
 
-- **add address [name] [home_address]**: Add a home address to the contact in the address book.
+- **change email [name] [new email]**: Change email for contact in address book.
+
+- **change address [name] [new address]**: Change address for contact in address book.
+
+- **remove [name]**: Delete a contact from the address book. Provide the contact's name to be removed.
 
 - **phone [name]**: Show the phone list of a contact.
-
-- **email [name]**: Show the email address of a contact.
-
-- **home [name]**: Show the home address of a contact.
 
 - **show all**: Show the entire address book.
 
 - **pages [size]**: Show the address book in pages, where the size is the number of records per page.
 
+- **to birthday [name]**: Show the number of days until the contact's birthday.
+
+- **celebrators [days to celebrate]**: Show users with birthday less then set days
+
 - **search [string]**: Perform a matching search for a name or phone number in the address book.
 
-- **remove [name]**: Delete a contact from the address book. Provide the contact's name to be removed.
+- **sort folder [path to folder]**: Sort files depends extensions into the target folder
 
-- **celebrators [days to celebrate]**: View a list of upcoming celebrators.
-
-- **notes [name] [note]**: Add a note to a contact in the address book. Provide the contact's name and the note.
-
-- **show notes [name]**: Show notes for a specific contact.
+- **notes**: module for user notes
 
 - **good bye, close, exit**: Print "Good bye!" and exit the application.
 

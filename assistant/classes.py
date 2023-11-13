@@ -1,10 +1,8 @@
 from prompt_toolkit.completion import PathCompleter, Completer, Completion
-from collections import UserDict
-from datetime import datetime, date
 import re
 import os
-
-
+from collections import UserDict
+from datetime import datetime, date
 
 
 class AddressBook(UserDict):

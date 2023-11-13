@@ -1,13 +1,14 @@
 import sys
 sys.path.append('.')
-from prompt_toolkit import prompt
-from assistant.classes import AddressBook, Record, Name, Phone, Birthday, MyCompleter
 import functools
 import pickle
 import os
+import re
+from prompt_toolkit import prompt
+from assistant.classes import AddressBook, Record, Name, Phone, Birthday, MyCompleter
 from assistant.sortfolder import check_args, list_files_recursive, sort, unpack_archives, normalize, remove_empty_directories, library
 from assistant.project_notes import PersonalAssistant
-import re
+
 
 help = """
 Available commands:

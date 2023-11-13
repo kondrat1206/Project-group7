@@ -344,6 +344,8 @@ def sort_folder(param_list):
     remove_empty_directories(new_dir)
     print(f'Your files are sorted in the directory {new_dir}, and empty folders have been deleted.')
 
+    return "Completed\n"
+
 
 def notes (param_list):
     

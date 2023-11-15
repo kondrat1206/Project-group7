@@ -1,4 +1,4 @@
-# Address Book CLI Application
+# Personal Assistant CLI Application
 
 This is a command-line interface (CLI) application for managing an address book. The application allows you to add, edit, and view contacts along with their phone numbers and birthdays, email, and home addresses. Allows search for address book with matches in phone, name or other fields.
 
